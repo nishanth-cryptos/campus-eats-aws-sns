@@ -1,0 +1,108 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  CampusEats - Serverless order notification system.
+  API Gateway (HTTP API) -> Lambda (Python) -> Amazon SNS topic -> Email subscribers,
+  with SNS message filtering on order lifecycle events.
+
+Parameters:
+  NotificationEmail:
+    Type: String
+    Description: Email that receives ALL order events (student / demo inbox). Confirm the subscription email from AWS.
+  KitchenEmail:
+    Type: String
+    Default: ''
+    Description: Optional canteen staff email. Uses an SNS filter policy so it only receives ORDER_PLACED events.
+  AllowedOrigin:
+    Type: String
+    Default: '*'
+    Description: CORS origin allowed to call the API (e.g. https://<user>.github.io).
+
+Conditions:
+  HasKitchenEmail: !Not [!Equals [!Ref KitchenEmail, '']]
+
+Globals:
+  Function:
+    Timeout: 10
+    MemorySize: 128
+    Runtime: python3.12
+
+Resources:
+  OrderAlertsTopic:
+    Type: AWS::SNS::Topic
+    Properties:
+      TopicName: CampusEats-Order-Alerts
+      DisplayName: CampusEats
+
+  StudentEmailSubscription:
+    Type: AWS::SNS::Subscription
+    Properties:
+      TopicArn: !Ref OrderAlertsTopic
+      Protocol: email
+      Endpoint: !Ref NotificationEmail
+
+  # Enhancement: SNS filter policy - kitchen staff are only notified about new orders.
+  KitchenEmailSubscription:
+    Type: AWS::SNS::Subscription
+    Condition: HasKitchenEmail
+    Properties:
+      TopicArn: !Ref OrderAlertsTopic
+      Protocol: email
+      Endpoint: !Ref KitchenEmail
+      FilterPolicyScope: MessageAttributes
+      FilterPolicy:
+        eventType:
+          - ORDER_PLACED
+
+  OrderNotifierFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: CampusEats-Order-Notifier
+      CodeUri: lambda/
+      Handler: lambda_function.lambda_handler
+      Environment:
+        Variables:
+          SNS_TOPIC_ARN: !Ref OrderAlertsTopic
+      Policies:
+        - SNSPublishMessagePolicy:
+            TopicName: !GetAtt OrderAlertsTopic.TopicName
+      Events:
+        NotifyOrder:
+          Type: HttpApi
+          Properties:
+            ApiId: !Ref CampusEatsApi
+            Path: /notify-order
+            Method: POST
+
+  CampusEatsApi:
+    Type: AWS::Serverless::HttpApi
+    Properties:
+      CorsConfiguration:
+        AllowOrigins:
+          - !Ref AllowedOrigin
+        AllowMethods:
+          - POST
+          - OPTIONS
+        AllowHeaders:
+          - Content-Type
+          - Authorization
+        MaxAge: 300
+      DefaultRouteSettings:
+        ThrottlingBurstLimit: 50
+        ThrottlingRateLimit: 20
+
+  OrderNotifierLogGroup:
+    Type: AWS::Logs::LogGroup
+    Properties:
+      LogGroupName: !Sub /aws/lambda/${OrderNotifierFunction}
+      RetentionInDays: 14
+
+Outputs:
+  NotifyOrderEndpoint:
+    Description: Paste this into js/aws-config.js as window.AWS_SNS_ENDPOINT
+    Value: !Sub https://${CampusEatsApi}.execute-api.${AWS::Region}.amazonaws.com/notify-order
+  TopicArn:
+    Description: SNS topic ARN
+    Value: !Ref OrderAlertsTopic
+  FunctionName:
+    Value: !Ref OrderNotifierFunction

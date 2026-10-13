@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - CampusEats</title>
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/admin.css">
+</head>
+
+<body>
+
+    <header class="header admin-header">
+        <div class="container navbar">
+            <div class="logo" style="color: white;">CampusEats Admin</div>
+            <div class="nav-links">
+                <span style="font-weight: bold; margin-right: 20px;" id="shopName">...</span>
+                <a href="stock.html" class="admin-nav-link">Stock Management</a>
+                <a href="../aws-monitor.html" class="admin-nav-link">SNS Monitor</a>
+                <a href="#" onclick="logout()" class="admin-nav-link">Logout</a>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="dashboard-stats">
+            <div class="stat-card">
+                <div class="stat-number" id="totalOrders">0</div>
+                <div>Total Orders</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">₹<span id="totalRevenue">0</span></div>
+                <div>Total Revenue</div>
+            </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
+            <div>
+                <h3>Pending & Preparing</h3>
+                <div id="pendingOrders" style="margin-top: 15px;"></div>
+            </div>
+
+            <div>
+                <h3>Ready for Pickup</h3>
+                <div id="activeOrders" style="margin-top: 15px;"></div>
+            </div>
+
+            <div>
+                <h3>Completed</h3>
+                <div id="completedOrders" style="margin-top: 15px;"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/appwrite@16.0.0"></script>
+    <script src="../js/appwrite.js"></script>
+    <script src="../js/appwrite-auth.js"></script>
+    <script src="../js/appwrite-db.js"></script>
+    <script src="../js/aws-config.js"></script>
+    <script src="../js/aws-notify.js"></script>
+    <script src="../js/admin.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,71 @@
+name: Deploy AWS backend (SAM)
+
+# Deploys aws/template.yaml: SNS topic + subscriptions, Lambda, HTTP API Gateway.
+# Needs repo secrets AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY and NOTIFICATION_EMAIL
+# (optional: KITCHEN_EMAIL secret, AWS_REGION variable).
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ['aws/**']
+
+permissions:
+  contents: read
+
+env:
+  AWS_REGION: ${{ vars.AWS_REGION || 'eu-north-1' }}
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check AWS credentials are configured
+        id: check
+        run: |
+          if [ -z "${{ secrets.AWS_ACCESS_KEY_ID }}" ]; then
+            echo "::warning::AWS secrets not set - skipping backend deploy"
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - uses: actions/checkout@v4
+        if: steps.check.outputs.skip != 'true'
+
+      - uses: actions/setup-python@v5
+        if: steps.check.outputs.skip != 'true'
+        with:
+          python-version: '3.12'
+
+      - uses: aws-actions/setup-sam@v2
+        if: steps.check.outputs.skip != 'true'
+        with:
+          use-installer: true
+
+      - uses: aws-actions/configure-aws-credentials@v4
+        if: steps.check.outputs.skip != 'true'
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: SAM build & deploy
+        if: steps.check.outputs.skip != 'true'
+        working-directory: aws
+        run: |
+          sam build
+          sam deploy \
+            --stack-name campuseats-notifications \
+            --resolve-s3 \
+            --capabilities CAPABILITY_IAM \
+            --no-confirm-changeset \
+            --no-fail-on-empty-changeset \
+            --parameter-overrides \
+              NotificationEmail="${{ secrets.NOTIFICATION_EMAIL }}" \
+              KitchenEmail="${{ secrets.KITCHEN_EMAIL }}" \
+              AllowedOrigin="https://${{ github.repository_owner }}.github.io"
+
+      - name: Show API endpoint
+        if: steps.check.outputs.skip != 'true'
+        run: |
+          aws cloudformation describe-stacks --stack-name campuseats-notifications \
+            --query "Stacks[0].Outputs" --output table

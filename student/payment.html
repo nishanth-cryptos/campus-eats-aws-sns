@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment - CampusEats</title>
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/student.css">
+</head>
+
+<body>
+
+    <header class="header">
+        <div class="container navbar">
+            <div class="logo">CampusEats</div>
+        </div>
+    </header>
+
+    <div class="container auth-container">
+        <div class="card">
+            <h2 style="margin-bottom: 20px;">Payment Gateway</h2>
+            <p style="margin-bottom: 30px; font-size: 1.2rem;">Total Amount: <strong>₹<span
+                        id="payAmount">0</span></strong></p>
+
+            <form id="paymentForm">
+                <div class="form-group">
+                    <label>Select Payment Method</label>
+                    <div style="text-align: left; background: #f9f9f9; padding: 15px; border-radius: 8px;">
+                        <div style="margin-bottom: 10px;">
+                            <input type="radio" name="paymethod" id="upi" checked>
+                            <label for="upi" style="display:inline; font-weight:normal;">UPI (GPay / PhonePe)</label>
+                        </div>
+                        <div style="margin-bottom: 10px;">
+                            <input type="radio" name="paymethod" id="card">
+                            <label for="card" style="display:inline; font-weight:normal;">Credit / Debit Card</label>
+                        </div>
+                        <div>
+                            <input type="radio" name="paymethod" id="wallet">
+                            <label for="wallet" style="display:inline; font-weight:normal;">Campus Wallet</label>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="submit" id="payBtn" class="btn" style="width: 100%; font-size: 1.1rem;">Pay Now</button>
+            </form>
+
+            <button onclick="history.back()" class="btn btn-outline"
+                style="width: 100%; margin-top: 15px; border:none;">Cancel</button>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/appwrite@16.0.0"></script>
+    <script src="../js/appwrite.js"></script>
+    <script src="../js/appwrite-auth.js"></script>
+    <script src="../js/appwrite-db.js"></script>
+    <script src="../js/aws-config.js"></script>
+    <script src="../js/aws-notify.js"></script>
+    <script src="../js/payment.js"></script>
+</body>
+
+</html>

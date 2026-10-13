@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select Location - CampusEats</title>
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/student.css">
+</head>
+
+<body>
+
+    <header class="header">
+        <div class="container navbar">
+            <div style="display: flex; align-items: center;">
+                <a href="#" onclick="logoutStudent()" class="btn-back" title="Log Out / Home">←</a>
+                <div class="logo">CampusEats</div>
+            </div>
+            <div class="nav-links">
+                <a href="cart.html" class="btn btn-outline">
+                    🛒 Cart <span id="cartBadge" class="badge">0</span>
+                </a>
+                <a href="orders.html" class="btn btn-light">My Orders</a>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div style="margin: var(--space-12) 0 var(--space-6);">
+            <h2 style="margin-bottom: var(--space-2);">Select Food Zone 🍕</h2>
+            <p class="text-muted">Where are you ordering from today?</p>
+        </div>
+
+        <div id="locationsContainer" class="locations-grid fade-in">
+            <!-- Locations Injected via JS -->
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/appwrite@16.0.0"></script>
+    <script src="../js/appwrite.js"></script>
+    <script src="../js/appwrite-auth.js"></script>
+    <script src="../js/appwrite-db.js"></script>
+    <script src="../js/locations.js"></script>
+    <script>
+        async function logoutStudent() {
+            await AppwriteAuth.logoutStudent();
+            window.location.href = '../index.html';
+        }
+    </script>
+</body>
+
+</html>

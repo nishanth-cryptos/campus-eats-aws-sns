@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select Shop - CampusEats</title>
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/student.css">
+</head>
+
+<body>
+
+    <header class="header">
+        <div class="container navbar">
+            <div style="display: flex; align-items: center;">
+                <a href="#" onclick="history.back()" class="btn-back">←</a>
+                <div class="logo">CampusEats</div>
+            </div>
+            <div class="nav-links">
+                <a href="cart.html" class="btn btn-outline">Cart <span id="cartBadge" class="badge">0</span></a>
+                <a href="locations.html" class="btn btn-secondary">Change Zone</a>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <h2 style="margin-bottom: 10px;">Shops in <span id="locationName">...</span></h2>
+        <div id="shopsContainer" class="shops-list">
+            <!-- Shops Injected via JS -->
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/appwrite@16.0.0"></script>
+    <script src="../js/appwrite.js"></script>
+    <script src="../js/appwrite-auth.js"></script>
+    <script src="../js/appwrite-db.js"></script>
+    <script src="../js/shops.js"></script>
+</body>
+
+</html>

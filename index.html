@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CampusEats - Skip the Queue, Order Food Anywhere on Campus</title>
+    <link rel="stylesheet" href="css/main.css">
+    <style>
+        body {
+            margin: 0;
+            overflow-x: hidden;
+        }
+
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: var(--gradient-hero);
+            padding: var(--space-16) var(--space-6);
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image:
+                radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            padding: var(--space-2) var(--space-6);
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            border-radius: var(--radius-full);
+            color: var(--white);
+            font-family: var(--font-heading);
+            font-size: var(--text-sm);
+            font-weight: var(--weight-semibold);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: var(--space-6);
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        .hero h1 {
+            font-family: var(--font-heading);
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            font-weight: var(--weight-extrabold);
+            color: var(--white);
+            margin-bottom: var(--space-6);
+            line-height: 1.1;
+            animation: fadeIn 0.8s ease-out 0.2s both;
+            text-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .hero h1 span {
+            display: block;
+            color: var(--white);
+            font-size: clamp(3rem, 10vw, 6rem);
+            margin-top: var(--space-3);
+        }
+
+        .hero p {
+            font-size: var(--text-xl);
+            color: rgba(255, 255, 255, 0.95);
+            margin-bottom: var(--space-12);
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            animation: fadeIn 0.8s ease-out 0.4s both;
+        }
+
+        .role-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: var(--space-8);
+            max-width: 900px;
+            width: 100%;
+            margin-top: var(--space-12);
+            animation: fadeIn 1s ease-out 0.6s both;
+        }
+
+        .role-card {
+            position: relative;
+            background: var(--white);
+            padding: var(--space-10);
+            border-radius: var(--radius-2xl);
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            box-shadow: var(--shadow-xl);
+            transition: all var(--transition-base);
+            overflow: hidden;
+        }
+
+        .role-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 6px;
+            background: var(--gradient-primary);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform var(--transition-base);
+        }
+
+        .role-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .role-card:hover {
+            transform: translateY(-12px);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.15);
+        }
+
+        .role-icon {
+            font-size: 5rem;
+            margin-bottom: var(--space-6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 120px;
+            height: 120px;
+            background: var(--gradient-light);
+            border-radius: var(--radius-full);
+            transition: transform var(--transition-base);
+        }
+
+        .role-card:hover .role-icon {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .role-title {
+            font-family: var(--font-heading);
+            font-size: var(--text-3xl);
+            font-weight: var(--weight-bold);
+            color: var(--black);
+            margin-bottom: var(--space-3);
+        }
+
+        .role-description {
+            font-size: var(--text-base);
+            color: var(--medium-gray);
+            margin-bottom: var(--space-8);
+            line-height: var(--leading-relaxed);
+        }
+
+        .role-card .btn {
+            width: 100%;
+            margin-top: auto;
+        }
+
+        .features-grid {
+            width: 100%;
+            padding: var(--space-8) var(--space-6);
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            margin-top: var(--space-12);
+            /* Add spacing from content */
+        }
+
+        .features {
+            display: flex;
+            justify-content: center;
+            gap: var(--space-12);
+            flex-wrap: wrap;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .feature {
+            display: flex;
+            align-items: center;
+            gap: var(--space-3);
+            color: var(--white);
+        }
+
+        .feature-icon {
+            font-size: 2rem;
+        }
+
+        .feature-text {
+            text-align: left;
+        }
+
+        .feature-label {
+            font-size: var(--text-xs);
+            opacity: 0.8;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .feature-value {
+            font-family: var(--font-heading);
+            font-size: var(--text-lg);
+            font-weight: var(--weight-bold);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                min-height: 90vh;
+                padding: var(--space-8) var(--space-4);
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero h1 span {
+                font-size: 2.5rem;
+            }
+
+            .role-cards {
+                grid-template-columns: 1fr;
+                gap: var(--space-6);
+            }
+
+            .features {
+                flex-direction: column;
+                gap: var(--space-6);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="hero">
+        <div class="hero-content">
+            <div class="hero-badge">🎓 Made for Students</div>
+
+            <h1>
+                CAMPUS FOOD
+                <span>LOVER'S PARADISE</span>
+            </h1>
+
+            <p>Skip the queue. Order food from anywhere on campus. Get notified when it's ready.</p>
+
+            <div class="role-cards">
+                <a href="student/login.html" class="role-card">
+                    <div class="role-icon">🎓</div>
+                    <div class="role-title">Student</div>
+                    <p class="role-description">Order food, track status in real-time, and pay online securely.</p>
+                    <div class="btn btn-primary btn-large">Get Started →</div>
+                </a>
+
+                <a href="admin/admin-login.html" class="role-card">
+                    <div class="role-icon">🏪</div>
+                    <div class="role-title">Shop Owner</div>
+                    <p class="role-description">Manage orders, update inventory, and track your earnings effortlessly.
+                    </p>
+                    <div class="btn btn-secondary btn-large">Owner Login →</div>
+                </a>
+            </div>
+        </div>
+
+        <div class="features-grid">
+            <div class="features">
+                <div class="feature">
+                    <div class="feature-icon">⚡</div>
+                    <div class="feature-text">
+                        <div class="feature-label">Fast</div>
+                        <div class="feature-value">Quick Orders</div>
+                    </div>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">🔔</div>
+                    <div class="feature-text">
+                        <div class="feature-label">Live</div>
+                        <div class="feature-value">Order Tracking</div>
+                    </div>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">💳</div>
+                    <div class="feature-text">
+                        <div class="feature-label">Secure</div>
+                        <div class="feature-value">Online Payment</div>
+                    </div>
+                </div>
+                <a href="aws-monitor.html" class="feature" style="text-decoration: none;">
+                    <div class="feature-icon">📡</div>
+                    <div class="feature-text">
+                        <div class="feature-label">AWS SNS</div>
+                        <div class="feature-value">Live Monitor →</div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Init Data -->
+    <script src="js/data.js"></script>
+</body>
+
+</html>

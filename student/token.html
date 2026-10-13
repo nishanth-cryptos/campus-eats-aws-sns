@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tokens - CampusEats</title>
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/student.css">
+</head>
+
+<body>
+
+    <header class="header">
+        <div class="container navbar">
+            <div class="logo">CampusEats</div>
+            <div class="nav-links">
+                <a href="orders.html" class="btn btn-outline">Track Status</a>
+                <a href="locations.html" class="btn btn-primary">Home</a>
+            </div>
+        </div>
+    </header>
+
+    <div class="container" style="text-align: center;">
+        <div
+            style="background: #d4edda; color: #155724; padding: 20px; border-radius: 10px; margin-bottom: 30px; display: inline-block;">
+            <h2>✅ Payment Successful!</h2>
+            <p>Your tokens are generated below.</p>
+        </div>
+
+        <div id="tokenList"
+            style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
+            <!-- Info Injected via JS -->
+        </div>
+
+        <div id="snsStatus" class="card" style="margin-top: 30px; text-align: left; display: none;"></div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/appwrite@16.0.0"></script>
+    <script src="../js/appwrite.js"></script>
+    <script src="../js/appwrite-auth.js"></script>
+    <script src="../js/appwrite-db.js"></script>
+    <script src="../js/aws-config.js"></script>
+    <script src="../js/aws-notify.js"></script>
+    <script src="../js/orders.js"></script>
+</body>
+
+</html>

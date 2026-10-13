@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seed Database - CampusEats</title>
+    <link rel="stylesheet" href="css/main.css">
+    <style>
+        .seed-container {
+            max-width: 700px;
+            margin: 60px auto;
+            padding: 40px;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .seed-container h2 {
+            margin-bottom: 10px;
+        }
+
+        #seedLog {
+            margin-top: 20px;
+            padding: 20px;
+            background: #1a1a2e;
+            color: #0f0;
+            border-radius: 8px;
+            font-family: monospace;
+            font-size: 13px;
+            max-height: 400px;
+            overflow-y: auto;
+            line-height: 1.6;
+        }
+
+        #seedLog div {
+            padding: 2px 0;
+        }
+
+        .warning-box {
+            background: #fff3cd;
+            color: #856404;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            font-size: 14px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="seed-container">
+        <h2>🌱 Seed Database</h2>
+        <p class="text-muted">Populate your Appwrite database with initial CampusEats data.</p>
+
+        <div class="warning-box">
+            ⚠️ <strong>Run this only once!</strong> Running it multiple times will create
+            duplicate entries. Make sure you have created the required collections in your
+            Appwrite Console first.
+        </div>
+
+        <button id="seedBtn" class="btn btn-primary btn-large" style="width: 100%; margin-top: 20px;"
+            onclick="runSeed()">
+            🚀 Seed Database Now
+        </button>
+
+        <div id="seedLog" style="display: none;"></div>
+
+        <p style="margin-top: 20px; text-align: center;">
+            <a href="index.html" class="text-muted">← Back to Home</a>
+        </p>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/appwrite@16.0.0"></script>
+    <script src="js/appwrite.js"></script>
+    <script src="js/appwrite-db.js"></script>
+    <script src="js/seed.js"></script>
+    <script>
+        async function runSeed() {
+            document.getElementById('seedLog').style.display = 'block';
+            document.getElementById('seedBtn').disabled = true;
+            document.getElementById('seedBtn').textContent = 'Seeding...';
+            await seedDatabase();
+            document.getElementById('seedBtn').textContent = '✅ Done!';
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart - CampusEats</title>
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/student.css">
+</head>
+
+<body>
+
+    <header class="header">
+        <div class="container navbar">
+            <div style="display: flex; align-items: center;">
+                <a href="#" onclick="history.back()" class="btn-back">←</a>
+                <div class="logo">CampusEats</div>
+            </div>
+            <div class="nav-links">
+                <a href="locations.html" class="btn btn-secondary">Add More Items</a>
+            </div>
+        </div>
+    </header>
+
+    <div class="container container-narrow">
+        <div style="margin: var(--space-8) 0 var(--space-6);">
+            <h2 style="margin-bottom: var(--space-2);">Your Cart</h2>
+            <p class="text-muted">Review items before checkout</p>
+        </div>
+
+        <div id="cartContainer" class="fade-in">
+            <!-- Cart Items Grouped by Shop -->
+        </div>
+
+        <div class="card card-elevated" style="margin-top: var(--space-8);">
+            <div class="card-body">
+                <div class="flex-between"
+                    style="font-size: var(--text-xl); font-weight: var(--weight-bold); margin-bottom: var(--space-4);">
+                    <span>Total Pay</span>
+                    <span class="text-primary">₹<span id="totalAmount">0</span></span>
+                </div>
+                <div class="divider"></div>
+                <div class="text-right">
+                    <button id="checkoutBtn" class="btn btn-primary btn-large">
+                        Proceed to Pay →
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/appwrite@16.0.0"></script>
+    <script src="../js/appwrite.js"></script>
+    <script src="../js/appwrite-auth.js"></script>
+    <script src="../js/appwrite-db.js"></script>
+    <script src="../js/cart.js"></script>
+</body>
+
+</html>

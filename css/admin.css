@@ -1,0 +1,102 @@
+/* Admin Portal Styles */
+
+.admin-header {
+    background: var(--dark-color);
+    color: white;
+}
+
+.admin-nav-link {
+    color: #dfe6e9;
+    margin-left: 15px;
+    font-size: 0.9rem;
+}
+
+.admin-nav-link:hover {
+    color: white;
+    text-decoration: underline;
+}
+
+.login-container {
+    max-width: 350px;
+    margin: 100px auto;
+    border-top: 5px solid var(--secondary-color);
+}
+
+.dashboard-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.stat-card {
+    background: white;
+    padding: 20px;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    text-align: center;
+}
+
+.stat-number {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: var(--secondary-color);
+}
+
+.order-card {
+    border-left: 5px solid #ccc;
+    margin-bottom: 15px;
+}
+
+.order-card.status-confirmed {
+    border-left-color: orange;
+}
+
+.order-card.status-preparing {
+    border-left-color: #3498db;
+}
+
+.order-card.status-ready {
+    border-left-color: #2ecc71;
+}
+
+.order-card.status-completed {
+    border-left-color: #95a5a6;
+    opacity: 0.8;
+}
+
+.status-select {
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+}
+
+/* Stock Page */
+.stock-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: white;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: var(--radius);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.stock-input {
+    width: 80px;
+    padding: 5px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.save-stock-btn {
+    background: var(--secondary-color);
+    color: white;
+    border: none;
+    padding: 5px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 10px;
+}
