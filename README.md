@@ -2,8 +2,8 @@
 
 Campus food-ordering website that simulates **Amazon SNS (Simple Notification Service)**: every order lifecycle event is published through **API Gateway → AWS Lambda → SNS** and fanned out to subscribers by email.
 
-**Live site:** https://nishanth-cryptos.github.io/campus-eats-aws-sns/
-**SNS Live Monitor:** https://nishanth-cryptos.github.io/campus-eats-aws-sns/aws-monitor.html
+**Live site:** https://irakshitha.github.io/campus-eats-aws-sns/
+**SNS Live Monitor:** https://irakshitha.github.io/campus-eats-aws-sns/aws-monitor.html
 
 ## Architecture
 
@@ -52,7 +52,7 @@ Orders, menus and auth are stored in Appwrite; the cart is in localStorage.
 Push to `main`. The **Deploy website to GitHub Pages** workflow publishes the site.
 To point it at a different API without editing code, set the repository variable `AWS_SNS_ENDPOINT`.
 
-> Appwrite only accepts requests from registered hosts. In the Appwrite console, open **Overview → Platforms → Add platform → Web** and add `nishanth-cryptos.github.io`.
+> Appwrite only accepts requests from registered hosts. In the Appwrite console, open **Overview → Platforms → Add platform → Web** and add `irakshitha.github.io`.
 
 ### AWS backend
 **Option A: GitHub Actions.** Add the repo secrets `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY` and `NOTIFICATION_EMAIL` (and optionally `KITCHEN_EMAIL`). Then run **Deploy AWS backend (SAM)**. Copy the `NotifyOrderEndpoint` output into `js/aws-config.js`.
